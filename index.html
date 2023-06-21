@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Server page</title>
+    <script defer>
+      function fetchOrders() {
+        fetch("http://localhost:8000/orders")
+          .then((response) => response.json())
+          .then((data) => console.log(data))
+          .catch((error) => console.error(error));
+      };
+
+      function addOrder() {
+        fetch("http://localhost:8000/orders", {
+          method: "POST",
+          headers: {
+            "Content-type": "application/json"
+          },
+          body: JSON.stringify({
+            id: 6,
+            name: "Gloves",
+            units: 7,
+            price: 1234
+          })
+        })
+        .then(response => response.json())
+        .then(data => console.log(data))
+        .catch(error => console.log(error))
+      };
+
+      function updateOrder() {
+        fetch("http://localhost:8000/orders/:id", {
+          method: "PUT",
+          headers: {
+            "Content-type" : "application/json"
+          },
+          body: JSON.stringify({
+            id: 6,
+            name: "Gloves",
+            units: 3,
+            price: 528
+        })
+      })
+      .then(response => response.json())
+      .then(data => console.log(data))
+      .catch(error => console.log(error))
+    };
+
+    function deleteOrder() {
+        fetch("http://localhost:8000/orders/:id", {
+          method: "DELETE",
+          headers: {
+            "Content-type" : "application/json"
+          },
+          body: JSON.stringify({
+            id: 6
+        })
+      })
+      .then(response => response.json())
+      .then(data => console.log(data))
+      .catch(error => console.log(error))
+    };
+    </script>
+  </head>
+  <body>
+    <div><button onclick="fetchOrders()">Fetch orders</button></div>
+    <div><button onclick="addOrder()">Add order</button></div>
+    <div><button onclick="updateOrder()">Update order</button></div>
+    <div><button onclick="deleteOrder()">Delete order</button></div>
+  </body>
+</html>
